@@ -1,2 +1,9 @@
-node_modules/
-dist/
+# Logs
+logs
+*.log
+npm-debug.log*
+node_modules
+.DS_Store
+dist
+package
+package-lock.json

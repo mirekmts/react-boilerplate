@@ -1,14 +1,20 @@
 /* eslint-disable import/no-commonjs, import/no-extraneous-dependencies */
+const packagejson = require( "../package.json" );
+
 const path = require( "path" );
 const webpack = require( "webpack" );
 const HtmlWebpackPlugin = require( "html-webpack-plugin" );
-const UglifyJSPlugin = require( "uglifyjs-webpack-plugin" );
+
+function resolve( dir ) {
+  return path.join( __dirname, "..", dir );
+}
 
 const iP = process.env.NODE_ENV === "production";
 
 const HtmlWebpackPluginConfig = {
   filename: "index.html",
   template: "src/index.html",
+  title: packagejson.config.title || "Your app title",
 };
 
 module.exports = {
@@ -20,7 +26,13 @@ module.exports = {
 
     output: {
       path: path.join( __dirname, "../dist" ),
-      filename: "script.js",
+      filename: "script.[hash].js",
+    },
+
+    resolve: {
+      alias: {
+        "@": resolve( "src" ),
+      },
     },
 
     rules: [
@@ -29,18 +41,34 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: [ "env" ],
-          },
         },
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              outputPath: "images/",
+              name: "[md5:hash:base64:6].[ext]",
+            },
+          },
+        ],
+      },
+      {
+        test: /\.txt$/,
+        use: [
+          {
+            loader: "raw-loader",
+          },
+        ],
       },
     ],
 
     plugins: [
-      new UglifyJSPlugin(),
       new HtmlWebpackPlugin( HtmlWebpackPluginConfig ),
       new webpack.DefinePlugin( {
-        "process.env.NODE_ENV": JSON.stringify( process.env.NODE_ENV || "development" ),
+        "process.env.VERSION": JSON.stringify( packagejson.version ),
       } ),
     ],
   },
