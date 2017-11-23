@@ -20,7 +20,7 @@ There are also 3 more scripts to note:
 |   ├── js       – all actual JS lays here
 |   ├── sass
 |   |   ├── variables.sass – this file will be included into every other so you should (as filename says) put here only variables, mixins, etc.
-|   ├── index.js – imports js/app.js (main JS file) and variables.sass
+|   ├── index.js – imports js/app.js (main JS file) and sets up Offline plugin
 ├── static       – all files from this folder will be copied 1 to 1 to dist folder after compilation
 └── tailwind.js  – configuration of tailwind (almost default I have changed only colors to these from https://material.io/guidelines/style/color.html#color-color-palette)
 ```
@@ -31,6 +31,7 @@ There are also 3 more scripts to note:
 * Preact (+preact-compat)
 * Autoprefixer
 * [Tailwind CSS](https://tailwindcss.com/)
+* Webpack [offline plugin](https://github.com/NekR/offline-plugin) – makes your app work offline
 * SASS
 * Babel transpiling (stage-0)
 * Linting for SASS ([sass-lint](https://github.com/sasstools/sass-lint)) and JS ([ESLint](https://eslint.org/)). Set up mostly according to [Airbnb Style Guide](https://github.com/airbnb/javascript) but with my small changes.

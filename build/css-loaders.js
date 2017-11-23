@@ -21,7 +21,7 @@ module.exports = iP => [
     loader: "sass-loader",
     options: {
       sourceMap: !iP,
-      data: "@import 'src/sass/style'",
+      data: "@import 'src/sass/variables'",
     },
   },
 ];

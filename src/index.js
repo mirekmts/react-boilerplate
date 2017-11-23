@@ -1,6 +1,5 @@
 import runtime from "offline-plugin/runtime";
 import "./js/app";
-import "./sass/variables.sass";
 
 if (process.env.NODE_ENV === "production") {
   runtime.install({
