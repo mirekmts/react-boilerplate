@@ -49,18 +49,29 @@ rules:
   force-pseudo-nesting: 0
 
   # Name Formats
-  class-name-format: 0
+  class-name-format:
+    - 1
+    - convention: ^(?!js-).*
+      convention-explanation: should not be written in the form js-*
   function-name-format: 1
-  id-name-format: 0
+  id-name-format:
+    - 1
+    - convention: hyphenatedbem
   mixin-name-format: 1
-  placeholder-name-format: 1
+  placeholder-name-format:
+    - 1
+    - convention: hyphenatedbem
   variable-name-format: 1
 
   # Style Guide
   attribute-quotes: 1
-  bem-depth: 0
-  border-zero: 1
-  brace-style: 1
+  bem-depth: 1
+  border-zero:
+    - 1
+    - convention: zero
+  brace-style:
+    - 1
+    - allow-single-line: false
   clean-import-paths: 1
   empty-args: 1
   hex-length: 1

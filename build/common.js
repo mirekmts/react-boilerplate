@@ -1,37 +1,44 @@
 /* eslint-disable import/no-commonjs, import/no-extraneous-dependencies */
-const packagejson = require( "../package.json" );
+const packagejson = require("../package.json");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackTemplate = require("html-webpack-template");
+const OfflinePlugin = require("offline-plugin");
 
-const path = require( "path" );
-const webpack = require( "webpack" );
-const HtmlWebpackPlugin = require( "html-webpack-plugin" );
+const path = require("path");
+const webpack = require("webpack");
 
-function resolve( dir ) {
-  return path.join( __dirname, "..", dir );
+function resolve(dir) {
+  return path.join(__dirname, "..", dir);
 }
 
 const iP = process.env.NODE_ENV === "production";
 
 const HtmlWebpackPluginConfig = {
+  template: HtmlWebpackTemplate,
+  inject: false,
   filename: "index.html",
-  template: "src/index.html",
-  title: packagejson.config.title || "Your app title",
+
+  ...packagejson.config,
 };
 
 module.exports = {
   iP,
   config: {
-    entry: [
-      "./src/index.js",
-    ],
+    entry: {
+      app: "./src/index.js",
+      vendor: ["preact", "preact-compat", "history", "offline-plugin/runtime"],
+    },
 
     output: {
-      path: path.join( __dirname, "../dist" ),
-      filename: "script.[hash].js",
+      path: path.join(__dirname, "../dist"),
+      filename: "[name].[hash].js",
     },
 
     resolve: {
       alias: {
-        "@": resolve( "src" ),
+        react: "preact-compat",
+        "react-dom": "preact-compat",
+        "@": resolve("src"),
       },
     },
 
@@ -66,10 +73,15 @@ module.exports = {
     ],
 
     plugins: [
-      new HtmlWebpackPlugin( HtmlWebpackPluginConfig ),
-      new webpack.DefinePlugin( {
-        "process.env.VERSION": JSON.stringify( packagejson.version ),
-      } ),
+      new webpack.DefinePlugin({
+        "process.env.VERSION": JSON.stringify(packagejson.version),
+        "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+      }),
+      new HtmlWebpackPlugin(HtmlWebpackPluginConfig),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: "vendor",
+      }),
+      new OfflinePlugin(),
     ],
   },
 };
