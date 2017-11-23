@@ -1,5 +1,6 @@
-# Frontend boilerplate
-This project is a boilerplate for my React (actually Preact) projects.
+# Preact boilerplate
+This project is a boilerplate for my React (actually Preact) projects.<br>
+(For non Preact boilerplate see https://github.com/bibixx/frontend-boilerplate)
 
 ## How to get it to work
 ### NPM
