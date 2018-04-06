@@ -1,7 +1,6 @@
 # React boilerplate
 
 This project is a boilerplate for my React projects.<br>
-(For non React boilerplate see https://github.com/bibixx/frontend-boilerplate/)
 
 ## How to get it to work
 
