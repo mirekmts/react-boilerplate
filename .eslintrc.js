@@ -6,25 +6,32 @@ module.exports = {
     "es6": true
   },
   "settings": {
-    "react": {
-      "pragma": "Preact",  // Pragma to use, default to "React"
-    },
     "import/resolver": {
       "webpack": {
-        config: "./build/webpack.dev.js",
+        config: "./build/resolves.js",
       }
     }
   },
   rules: {
     "import/no-commonjs": ["error", "always"],
-
-    // "react/forbid-prop-types": 0,
-    // "react/react-in-jsx-scope": 0,
+    "import/prefer-default-export": 0,
+    
+    "react/forbid-prop-types": 0,
+    "react/react-in-jsx-scope": 0,
     "react/jsx-filename-extension": 0,
     "react/no-deprecated": 0,
     "react/no-danger": 0,
-    "react/jsx-curly-spacing": [2, {"when": "never", "allowMultiline": false}],
+    "react/jsx-curly-spacing": [2, { "when": "never", "allowMultiline": true }],
+    "react/prefer-stateless-function": 0,
+    "react/no-array-index-key": 0,
 
+
+    "jsx-a11y/media-has-caption": 0,
+    "jsx-a11y/no-noninteractive-element-to-interactive-role": 0,
+    "jsx-a11y/label-has-for": 0,
+
+    "eslint/experimentalDecorators": 0,
+    "no-nested-ternary": 0,
     "function-paren-newline": 0,
     "func-names": 0,
     "semi": ["error", "always"],
@@ -35,6 +42,7 @@ module.exports = {
     "quote-props": ["error", "as-needed"],
     "indent": ["error", 2, { "SwitchCase": 1, "MemberExpression": 1 }],
     "no-plusplus": 0,
-    "no-mixed-operators": ["error", {"allowSamePrecedence": true}]
+    "no-mixed-operators": ["error", { "allowSamePrecedence": true }],
+    "no-new": 0,
   }
 }

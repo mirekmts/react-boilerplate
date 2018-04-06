@@ -1,0 +1,29 @@
+@import "../../../sass/variables"
+
+.todo
+  padding: 16px 32px
+
+  label
+    display: flex
+    align-items: center
+    width: 100%
+
+  &:not(:last-child)
+    border-bottom: 1px solid $border-color
+
+  &--done
+    *
+      text-decoration: line-through
+
+  input[type="text"]
+    flex: 1
+    height: 32px
+    margin-left: 32px
+    padding: 0 8px
+    transition: border-color .2s ease-in-out
+    border: 1px solid $border-color
+    border-radius: 2px
+    outline: 0
+
+    &:focus
+      border-color: transparent transparent $border-color
