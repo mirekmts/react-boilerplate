@@ -5,10 +5,12 @@ const resolve = dir => path.join(__dirname, "..", dir);
 
 module.exports = {
   resolve: {
+    alias: {
+      assets: resolve("assets"),
+    },
     modules: [
       resolve("src/js"),
       resolve("src/sass"),
-      resolve("assets"),
       "node_modules",
     ],
   },

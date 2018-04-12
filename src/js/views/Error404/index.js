@@ -3,7 +3,7 @@ import React from "react";
 import Container from "components/Container";
 import ErrorContainer from "components/ErrorContainer";
 
-import no from "images/no.gif";
+import no from "assets/images/no.gif";
 
 const Error404 = () => (
   <Container>
