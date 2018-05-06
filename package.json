@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js",
+    "start": "NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js --host 0.0.0.0",
     "build": "rimraf dist && NODE_ENV=production webpack --config ./build/webpack.config.js -p --progress --hide-modules",
     "analize": "rimraf dist && MONITOR=true npm run build",
     "lint": "eslint src/*"
