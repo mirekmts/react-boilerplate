@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js --host 0.0.0.0",
+    "start": "NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js",
     "build": "rimraf dist && NODE_ENV=production webpack --config ./build/webpack.config.js -p --progress --hide-modules",
     "analize": "rimraf dist && MONITOR=true npm run build",
     "lint": "eslint src/*"
@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "chalk": "^2.4.1",
     "immutable": "^3.8.2",
     "prop-types": "^15.6.1",
     "react": "^16.3.0",

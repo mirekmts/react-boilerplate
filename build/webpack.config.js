@@ -1,6 +1,7 @@
 /* eslint-disable import/no-commonjs, import/no-extraneous-dependencies */
 const webpack = require("webpack");
 const path = require("path");
+const chalk = require("chalk");
 const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
 const packageJSON = require("../package.json");
 
@@ -23,39 +24,27 @@ const ExtractSASSConfig = {
 };
 const ExtractSASS = new ExtractTextPlugin(ExtractSASSConfig);
 
+const host = process.env.HOST || "0.0.0.0";
+const port = process.env.PORT || 8080;
+const url = `http://${host === "0.0.0.0" ? "localhost" : host}:${port}`;
+
 module.exports = {
   mode: production ? "production" : "development",
 
   entry: {
     app: "./src/index.js",
-    vendor:
-      [
-        "react",
-        "react-dom",
-        ...!production ?
-          [
-            "webpack/hot/only-dev-server",
-            "webpack-dev-server/client?http://localhost:8080",
-          ] :
-          [],
+
+    ...(!production ? {
+      vendor: [
+        "webpack/hot/only-dev-server",
+        `webpack-dev-server/client?http://${host}:${port}`,
       ],
+    } : {}),
   },
 
   output: {
     path: resolve("dist"),
-    filename: "[name].[hash].js",
-  },
-
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendor",
-          chunks: "all",
-        },
-      },
-    },
+    filename: production ? "[name].[chunkhash].js" : "[name].[hash].js",
   },
 
   performance: {
@@ -71,6 +60,15 @@ module.exports = {
       historyApiFallback: true,
       contentBase: `${__dirname}/../public`,
     },
+
+
+  ...(production ? {
+    optimization: {
+      splitChunks: {
+        chunks: "all",
+      },
+    },
+  } : {}),
 
   devtool: production ? "#none" : "#cheap-module-eval-source-map",
 
@@ -137,7 +135,11 @@ module.exports = {
       ] :
       [
         new webpack.HotModuleReplacementPlugin(),
-        new FriendlyErrorsPlugin(),
+        new FriendlyErrorsPlugin({
+          compilationSuccessInfo: {
+            messages: [`You application is running on ${chalk.blue(url)}`],
+          },
+        }),
       ],
 
     ...monitor ? [new BundleAnalyzerPlugin()] : [],
